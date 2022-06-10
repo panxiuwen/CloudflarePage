@@ -1,0 +1,741 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Pan&#39;s websit">
+    <title>Aria2的安装使用 - Pan&#39;s websit</title>
+    <meta name="author" content="Sean Pan">
+    
+        <meta name="keywords" content="hexo,javascript">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://github.com/panxiuwen/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"mitu.jpg"},"articleBody":"Aria2是一款开源下载工具，可跨平台实现http、ftp、MagNet、BitTorrent等协议文件下载，还能通过RCP协议实现远程管理本文介绍了Aria2的安装使用\n\n\n一、安装并启动安装\n1apt-get install aria2\n\nWindows下载aria2\n写配置文件\n12mkdir -p ~/.config/aria2/nano  ~/.config/aria2/aria2.config\n配置文件\n12345678910dir=/app/scihub/store/ #下载目录continue=trueenable-rpc=truerpc-listen-all=trueauto-file-renaming=falserpc-secret=123#百度网盘限速split=1max-connection-per-server=1max-overall-download-limit=100k\n\n启动\n1aria2c  --conf-path=&quot;/root/.config/aria2/aria2.config &quot; -D\n下载AriaNg丢到web服务器里就行\n\n二、开机启动在init.d目录下增加启动脚本\n1sudo nano /etc/init.d/aria2c \n2.添加脚本内容\n1234567891011121314151617181920#!/bin/shcase &quot;$1&quot; instart) echo -n &quot;已开启Aria2c&quot; sudo aria2c --conf-path=Aria2绝对路径aria2.conf -D;;stop) echo -n &quot;已关闭Aria2c&quot; killall aria2c;;restart) killall aria2c sudo aria2c --conf-path=Aria2绝对路径/aria2.conf -D;;esacexit\n\n修改启动脚本文件权限1sudo chmod 755 /etc/init.d/aria2c\n添加aria2c服务到开机服务1sudo update-rc.d aria2c defaults\n启动服务1sudo service aria2c start\n停止服务1sudo service aria2c stop\n重启服务1sudo service aria2c restart\n进程查找1pstree -aup | grep aria2\naria2c可执行文件位置查找1whereis aria2c\n下载完毕运行脚本12on-download-complete=/home/public/Download/1.sh\n在脚本中修改下载后的文件拥有者\n\n1chown -R nobody /home/public/Download\n\n三、BitTorrent没速度1.添加trackerslist\n2.下载DHT.dat文件\n","dateCreated":"2022-06-03T18:37:41+08:00","dateModified":"2022-06-08T21:47:14+08:00","datePublished":"2022-06-03T18:37:41+08:00","description":"Aria2是一款开源下载工具，可跨平台实现http、ftp、MagNet、BitTorrent等协议文件下载，还能通过RCP协议实现远程管理本文介绍了Aria2的安装使用","headline":"Aria2的安装使用","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://github.com/panxiuwen/","http://stackoverflow.com/users","https://twitter.com/","https://facebook.com/","https://plus.google.com/","https://www.linkedin.com/profile/","mailto"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/","keywords":"Network"}</script>
+    <meta name="description" content="Aria2是一款开源下载工具，可跨平台实现http、ftp、MagNet、BitTorrent等协议文件下载，还能通过RCP协议实现远程管理本文介绍了Aria2的安装使用">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Aria2的安装使用">
+<meta property="og:url" content="http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/index.html">
+<meta property="og:site_name" content="Pan&#39;s websit">
+<meta property="og:description" content="Aria2是一款开源下载工具，可跨平台实现http、ftp、MagNet、BitTorrent等协议文件下载，还能通过RCP协议实现远程管理本文介绍了Aria2的安装使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-03T10:37:41.000Z">
+<meta property="article:modified_time" content="2022-06-08T13:47:14.000Z">
+<meta property="article:author" content="Sean Pan">
+<meta property="article:tag" content="Network">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://127.0.0.1/assets/images/mitu.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-2nqzea2oaogxvzjlqnefiaiftterqykszah4marf7i2idvd0nd9nnwr49fhx.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Pan&#39;s websit
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="打开链接: /#about"
+            >
+        
+        
+            <img class="header-picture" src="/assets/images/mitu.jpg" alt="作者的图片"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="阅读有关作者的更多信息"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/mitu.jpg" alt="作者的图片"/>
+                </a>
+                <h4 class="sidebar-profile-name">Sean Pan</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>不似天涯，卷起杨花似雪花</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="首页"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">首页</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="分类"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">分类</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="标签"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">标签</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="归档"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">归档</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="#search"
+                            
+                            rel="noopener"
+                            title="搜索"
+                        >
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">搜索</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="关于"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">关于</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/panxiuwen/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="http://stackoverflow.com/users"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Stack Overflow"
+                        >
+                        <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Stack Overflow</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://twitter.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Twitter"
+                        >
+                        <i class="sidebar-button-icon fab fa-twitter" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Twitter</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://plus.google.com/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Google Plus"
+                        >
+                        <i class="sidebar-button-icon fab fa-google-plus" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Google Plus</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://www.linkedin.com/profile/"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="LinkedIn"
+                        >
+                        <i class="sidebar-button-icon fab fa-linkedin" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="邮箱"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">邮箱</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Aria2的安装使用
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2022-06-03T18:37:41+08:00">
+	
+		    6月 03, 2022
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>Aria2是一款开源下载工具，可跨平台实现http、ftp、MagNet、BitTorrent等协议文件下载，还能通过RCP协议实现远程管理<br>本文介绍了Aria2的安装使用</p>
+<span id="more"></span>
+<hr>
+<h3 id="一、安装并启动"><a href="#一、安装并启动" class="headerlink" title="一、安装并启动"></a>一、安装并启动</h3><p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install aria2</span><br></pre></td></tr></table></figure>
+<hr>
+<p><a target="_blank" rel="noopener" href="https://aria2.github.io/">Windows下载aria2</a></p>
+<p>写配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.config/aria2/</span><br><span class="line">nano  ~/.config/aria2/aria2.config</span><br></pre></td></tr></table></figure>
+<p>配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dir=/app/scihub/store/ #下载目录</span><br><span class="line">continue=true</span><br><span class="line">enable-rpc=true</span><br><span class="line">rpc-listen-all=true</span><br><span class="line">auto-file-renaming=false</span><br><span class="line">rpc-secret=123</span><br><span class="line">#百度网盘限速</span><br><span class="line">split=1</span><br><span class="line">max-connection-per-server=1</span><br><span class="line">max-overall-download-limit=100k</span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aria2c  --conf-path=&quot;/root/.config/aria2/aria2.config &quot; -D</span><br></pre></td></tr></table></figure>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/mayswind/AriaNg">AriaNg</a>丢到web服务器里就行</p>
+<hr>
+<h3 id="二、开机启动"><a href="#二、开机启动" class="headerlink" title="二、开机启动"></a>二、开机启动</h3><p>在init.d目录下增加启动脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/init.d/aria2c </span><br></pre></td></tr></table></figure>
+<p>2.添加脚本内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">start)</span><br><span class="line"></span><br><span class="line"> echo -n &quot;已开启Aria2c&quot;</span><br><span class="line"> sudo aria2c --conf-path=Aria2绝对路径aria2.conf -D</span><br><span class="line">;;</span><br><span class="line">stop)</span><br><span class="line"></span><br><span class="line"> echo -n &quot;已关闭Aria2c&quot;</span><br><span class="line"> killall aria2c</span><br><span class="line">;;</span><br><span class="line">restart)</span><br><span class="line"></span><br><span class="line"> killall aria2c</span><br><span class="line"> sudo aria2c --conf-path=Aria2绝对路径/aria2.conf -D</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>修改启动脚本文件权限<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 755 /etc/init.d/aria2c</span><br></pre></td></tr></table></figure></li>
+<li>添加aria2c服务到开机服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-rc.d aria2c defaults</span><br></pre></td></tr></table></figure></li>
+<li>启动服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service aria2c start</span><br></pre></td></tr></table></figure></li>
+<li>停止服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service aria2c stop</span><br></pre></td></tr></table></figure></li>
+<li>重启服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service aria2c restart</span><br></pre></td></tr></table></figure></li>
+<li>进程查找<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pstree -aup | grep aria2</span><br></pre></td></tr></table></figure></li>
+<li>aria2c可执行文件位置查找<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis aria2c</span><br></pre></td></tr></table></figure>
+下载完毕运行脚本<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">on-download-complete=/home/public/Download/1.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+在脚本中修改下载后的文件拥有者</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R nobody /home/public/Download</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="三、BitTorrent没速度"><a href="#三、BitTorrent没速度" class="headerlink" title="三、BitTorrent没速度"></a><a target="_blank" rel="noopener" href="https://www.haah.net/archives/5240.html">三、BitTorrent没速度</a></h3><p>1.添加<a target="_blank" rel="noopener" href="https://github.com/ngosang/trackerslist">trackerslist</a></p>
+<p>2.下载DHT.dat文件</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Network/" rel="tag">Network</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/cl47z3jjz001upcvi3vkea2hr/"
+                    data-tooltip="使用Wordpress建站"
+                    aria-label="上一篇: 使用Wordpress建站"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/cl47z3jhw0003pcvi2wgkgcou/"
+                    data-tooltip="使用Crontab设置定时任务"
+                    aria-label="下一篇: 使用Crontab设置定时任务"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                    title="分享到 Facebook"
+                    aria-label="分享到 Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                    title="分享到 Twitter"
+                    aria-label="分享到 Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                    title="分享到 Google+"
+                    aria-label="分享到 Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2022 Sean Pan. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/cl47z3jjz001upcvi3vkea2hr/"
+                    data-tooltip="使用Wordpress建站"
+                    aria-label="上一篇: 使用Wordpress建站"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/cl47z3jhw0003pcvi2wgkgcou/"
+                    data-tooltip="使用Crontab设置定时任务"
+                    aria-label="下一篇: 使用Crontab设置定时任务"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                    title="分享到 Facebook"
+                    aria-label="分享到 Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                    title="分享到 Twitter"
+                    aria-label="分享到 Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://plus.google.com/share?url=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                    title="分享到 Google+"
+                    aria-label="分享到 Google+"
+                >
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                        aria-label="分享到 Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>分享到 Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                        aria-label="分享到 Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>分享到 Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://plus.google.com/share?url=http://127.0.0.1/cl47z3jhj0001pcvic7r1glex/"
+                        aria-label="分享到 Google+"
+                    >
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>分享到 Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/mitu.jpg" alt="作者的图片"/>
+        
+            <h4 id="about-card-name">Sean Pan</h4>
+        
+            <div id="about-card-bio"><p>不似天涯，卷起杨花似雪花</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Master in YUN</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                Kunming China
+            </div>
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-qxunab7oirxcarmo6uqowyqlrtzrsspdjxyoz2qntld7frz95k0i1kvxrbav.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
