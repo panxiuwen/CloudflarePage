@@ -6,27 +6,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pan&#39;s websit">
-    <title>备份软件的使用 - Pan&#39;s websit</title>
+    <title>不确定原理为啥不确定啊？又被傅里叶懂完了 - Pan&#39;s websit</title>
     <meta name="author" content="Sean Pan">
     
         <meta name="keywords" content="hexo,javascript">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg"},"articleBody":"硬盘有价，数据无价，本文介绍了一些备份软件\n\n\n无论是硬件损毁或丢失、软件误删或者中病毒都造成不可挽回的数据丢失。所以养成备份的好习惯十分重要，在个人数据越发重要的2202年，笔者总结一些具有备份功能软件。\n\n各种网盘&amp;云服务现在国际国内各大厂都有自己的网盘，硬件、软件厂商也会在产品中针对的自己的用户群体来集成自己的云服务。1.大容量+低速类网盘最典型的是百度网盘，免费容量2TB，普通用户不仅限速100kB，而且到一定流量后限速10kB百度网盘其实主打文件分享，文件审查+低下载速度就注定它不可能成为好的个人数据备份软件。甚至有同学和我吐槽把图片上传到百度网盘搜索就会推送类似的东西所以不敢用了。2.小容量+高速腾讯微云或者的容量相比百度网盘小的多，速度确实比百度网盘快多了，速度已经比较适合存文件了。当然腾讯微云做的也是用不成，搜索功能是废的，所以我转了阿里。3.同步网盘主打同步网盘的产品相对来讲就比较少了，大厂中就只有微云同步助手还活着了，只提供Win版和Mac版，同步目录占用微云的空间，但看起来做的不如腾讯微云做的用心。坚果云是按月流量计费，免费上传1G下载3G，难免有点捉襟见肘，但是只写写文档还是绰绰有余的，也比微云好用的多。4.集成网盘/云服务典型的例子是集成手机系统里的云服务，Apple的iCloud，miui等国产系统自带的云服务，用于同步手机里的相册、录音。集成在网易云音乐里的网易音乐云盘，方便用户听歌(规避版权)。集成在WPS里的云盘也带给用户非常棒的体验。5.不稳定的国外网盘最典型的是MiroSoft的OneDrive6.被墙的国外网盘最典型的是大名鼎鼎的GoogleDrive\n\n自建NAS对于网盘已经满足不了的用户，可以自建NAS，群辉等老牌NAS厂商的方案已经十分成熟。\nFreeFileSyncFreeFileSync可用于同一设备不同文件夹的改动检测和同步，本身提供Win、Linux、Mac三平台及源代码，综合来看应用场景应该是用U盘或者移动硬盘进行数据备份。\n\n坚果云坚果云也是跨平台同步软件，提供Win、Linux、Mac、Android、IOS和网页客户端，自带markdown编辑器，看样子是主打内容创作。PS：笔者写网页用的就是坚果云，PC上同步整个工程文件夹，方便发布；安卓上直接使用“坚果云arkdown”进行编辑，大部分内容不同步到移动设备。PPS：由于网页源代码都比较小，所以免费版流量的每月1GB给我随便写都造不完。\n\n群晖助手我觉得群晖的app做的不错，PC端其实完全用不到，还是Syncthing更香安卓上有一堆群晖/DS的应用程序，笔者喜欢用DS audio听歌\n\nSyncthing的使用Syncthing可用于不同设备间的备份，具有去中心化的特点\n安装与配置假设Linux上的目录是/app/syncthing，用户为root安装syncthing并写配置文件先下载，后上传到服务器\n解压命令是\n1tar -zxvf syncthing-linux-arm64-v1.19.1.tar.gz\n首先启动./syncthing，初始化完毕后按下Ctrl+C终止操作\n打开/root/.config/syncthing/config.xml\n1修改&lt;address&gt;为0.0.0.0:8384\n设置自启动修改文件名称/app/syncthing/etc/linux-systemd/system/&#x73;&#121;&#110;&#99;&#116;&#x68;&#x69;&#x6e;&#103;&#64;&#114;&#x6f;&#x6f;&#x74;&#46;&#115;&#101;&#114;&#x76;&#x69;&#99;&#101;\n拷贝到systemd文件夹\n1cp syncthing@root.service /etc/systemd/system/\n修改&#115;&#121;&#110;&#99;&#x74;&#x68;&#x69;&#110;&#x67;&#x40;&#x72;&#111;&#x6f;&#x74;&#46;&#x73;&#101;&#x72;&#118;&#105;&#99;&#101;内容\n12nano /etc/systemd/system/syncthing@root.serviceExecStart=/app/syncthing/syncthing\n使用命令启动服务\n12systemctl enable syncthing@root.servicesystemctl start syncthing@root.service\n在控制端打开网页进行配置创建文件夹后配制文件夹，等待扫描完成后可以开启共享发送给添加的设备\n","dateCreated":"2021-05-08T00:00:00+08:00","dateModified":"2022-06-17T01:48:28+08:00","datePublished":"2021-05-08T00:00:00+08:00","description":"硬盘有价，数据无价，本文介绍了一些备份软件","headline":"备份软件的使用","image":["cover.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://panxiuwen.github.io/posts/1007/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"https://panxiuwen.github.io/posts/1007/","keywords":"Network, Backups","thumbnailUrl":"cover.jpg"}</script>
-    <meta name="description" content="硬盘有价，数据无价，本文介绍了一些备份软件">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg"},"articleBody":"\n\n转载自中科院物理所\n\n我经常听到人们讲，是因为观察者通过光子和电子发生相互作用使光子的动量受到了影响，所以才导致了海森堡不确定性原理。\n\n\n观察者必须通过影响电子的动量（或一些量子态）来观察它，这或许是真的，但这不是导致不确定性原理的真正原因！在开始讨论这个话题之前，让我们先定义海森堡不确定性原理(Heisenberg’s uncertainty principle)。\n\n在量子力学中，存在一系列关于共轭物理量（如位置和动量）的不等式，它们限制了同时测量这些成对物理量的精度，这些不等式中的任意一个都可以被称为不确定性原理（或是海森堡不确定性原理）。\n——维基百科\n\n一种常见的表述方式是，在任何给定的时间点，你都无法同时准确地测量粒子的动量和位置。这种不确定性不取决于设备的好坏，也不是因为很难消除测量误差。无论我们做得多好，我们都无法同时精确测量这两个量（如动量和能量）…首先，存在许多种不确定性原理，其中不少能在宏观世界中看到。即使你没有意识到它们的存在，但其实也一直在和这些现象打交道。其次，海森堡不确定性原理背后与数学有着密切的关系。所有波和物质（共轭变量）都必须遵从一系列的不确定性原理，真正导出这些原理的是一个数学事实（稍后详述）。音乐、雷达技术、能源技术和光也有必须遵守的“不确定性原理”，我们很快就会看到，是数学决定了这一切。\n\n波一切都可以归结为非常简单的事情。无论多复杂的的信号或函数，实际上都是正弦波的叠加。正弦波是具有特定波长和振幅的波。叠加仅仅意味着所有的波相互作用，所有波的和（称为干涉）就是构成更复杂信号的叠加。也就是说，我们可以将一个函数分解为组成它的更简单的部分（正弦波）。这几乎就是我们在计算傅里叶级数的傅里叶系数时所要做的一切。值得的一提的是，这个方法对于非周期函数同样适用。这种效果在音乐中是众所周知的，例如，吉他生中的泛音会干扰主波（弦的频率）。也就是说，吉他的声音（以及任何其他乐器，包括你的声音）是由频率和振幅不同的正弦波组成的。当我们描述这样一个复杂的信号时，我们有两种等价的方式可以选择。也就是说，我们可以选择两种不同的单位对它进行描述。我们可以选择用时间来描述产生干涉图样的所有波是如何同时相互作用的，也可以选择用构成干涉图样的正弦波的频率来描述它。可以用两种等效的方式来描述的事件被称为双重关系（dual relationship）。如果我们可以找到一个数学工具来描述时间信号和频率信号之间的双重关系，那当然再好不过。事实上，我们确实找到了这样的工具。\n\n傅里叶变换我上面提到的描述这种双重关系的工具叫做傅里叶变换(Fourier transform)。毫无疑问，它是数学工具中最强大、最常用的工具之一。在给出它的一些特性之前，我们先讲一讲这种傅里叶变换的一些一般性质：\n\n傅里叶变换是一种积分变换（也就是一个算符），它拿到一个函数并返回另一个函数。\n\n作为函数空间上的一个算符，我们可以把它看作是纯数学的客体，但我们可以赋予它很好的物理解释。在物理和数学领域，我们都可以使用它。今天，我们主要将从物理学的角度来考虑它。在下面的讨论中，我们假设积分始终收敛。\n令f: R→C是一个可积函数。f的傅里叶变换由以下积分给出：\n\n\n如果表示声波随时间的变化，那么傅里叶变换的结果表示构成声波的频率，因此也可以看做是频率的函数。下面的动图显示了声波（图中是单位脉冲信号）是如何由许多正弦波组成的，正弦波的叠加产生了函数，即\n","dateCreated":"2020-07-27T00:00:00+08:00","dateModified":"2022-06-30T22:55:56+08:00","datePublished":"2020-07-27T00:00:00+08:00","description":"","headline":"不确定原理为啥不确定啊？又被傅里叶懂完了","image":["cover.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://panxiuwen.github.io/posts/3000/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"https://panxiuwen.github.io/posts/3000/","keywords":"Linux, System","thumbnailUrl":"cover.jpg"}</script>
+    <meta name="description" content="转载自中科院物理所  我经常听到人们讲，是因为观察者通过光子和电子发生相互作用使光子的动量受到了影响，所以才导致了海森堡不确定性原理。   观察者必须通过影响电子的动量（或一些量子态）来观察它，这或许是真的，但这不是导致不确定性原理的真正原因！在开始讨论这个话题之前，让我们先定义海森堡不确定性原理(Heisenberg’s uncertainty principle)。  在量子力学中，存在一">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="备份软件的使用">
-<meta property="og:url" content="https://panxiuwen.github.io/posts/1007/index.html">
+<meta property="og:title" content="不确定原理为啥不确定啊？又被傅里叶懂完了">
+<meta property="og:url" content="https://panxiuwen.github.io/posts/3000/index.html">
 <meta property="og:site_name" content="Pan&#39;s websit">
-<meta property="og:description" content="硬盘有价，数据无价，本文介绍了一些备份软件">
+<meta property="og:description" content="转载自中科院物理所  我经常听到人们讲，是因为观察者通过光子和电子发生相互作用使光子的动量受到了影响，所以才导致了海森堡不确定性原理。   观察者必须通过影响电子的动量（或一些量子态）来观察它，这或许是真的，但这不是导致不确定性原理的真正原因！在开始讨论这个话题之前，让我们先定义海森堡不确定性原理(Heisenberg’s uncertainty principle)。  在量子力学中，存在一">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-16T17:48:28.000Z">
+<meta property="og:image" content="https://panxiuwen.github.io/posts/3000/01.png">
+<meta property="og:image" content="https://panxiuwen.github.io/posts/3000/02.png">
+<meta property="og:image" content="https://panxiuwen.github.io/posts/3000/03.gif">
+<meta property="article:published_time" content="2020-07-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-30T14:55:56.031Z">
 <meta property="article:author" content="Sean Pan">
-<meta property="article:tag" content="Network">
-<meta property="article:tag" content="Backups">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="System">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://panxiuwen.github.io/posts/3000/01.png">
 <meta name="twitter:creator" content="@982202733">
 <meta property="fb:app_id" content="[object Object]">
     
@@ -39,8 +43,8 @@
         <meta property="og:image" content="https://panxiuwen.github.io/assets/images/mitu.jpg"/>
     
     
-        <meta property="og:image" content="https://panxiuwen.github.io/posts/1007/cover.jpg"/>
-        <meta class="swiftype" name="image" data-type="enum" content="https://panxiuwen.github.io/posts/1007/cover.jpg"/>
+        <meta property="og:image" content="https://panxiuwen.github.io/posts/3000/cover.jpg"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://panxiuwen.github.io/posts/3000/cover.jpg"/>
     
     
     
@@ -293,14 +297,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            备份软件的使用
+            不确定原理为啥不确定啊？又被傅里叶懂完了
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2021-05-08T00:00:00+08:00">
+    <time datetime="2020-07-27T00:00:00+08:00">
 	
-		    2021年 5月 08日
+		    2020年 7月 27日
     	
     </time>
     
@@ -312,36 +316,32 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <p>硬盘有价，数据无价，本文介绍了一些备份软件</p>
-<span id="more"></span>
-<hr>
-<p>无论是硬件损毁或丢失、软件误删或者中病毒都造成不可挽回的数据丢失。所以养成备份的好习惯十分重要，在个人数据越发重要的2202年，笔者总结一些具有备份功能软件。</p>
-<hr>
-<h3 id="各种网盘-amp-云服务"><a href="#各种网盘-amp-云服务" class="headerlink" title="各种网盘&amp;云服务"></a>各种网盘&amp;云服务</h3><p>现在国际国内各大厂都有自己的网盘，硬件、软件厂商也会在产品中针对的自己的用户群体来集成自己的云服务。<br>1.大容量+低速类网盘<br>最典型的是百度网盘，免费容量2TB，普通用户不仅限速100kB，而且到一定流量后限速10kB<br>百度网盘其实主打文件分享，文件审查+低下载速度就注定它不可能成为好的个人数据备份软件。<br>甚至有同学和我吐槽把图片上传到百度网盘搜索就会推送类似的东西所以不敢用了。<br>2.小容量+高速<br>腾讯微云或者的容量相比百度网盘小的多，速度确实比百度网盘快多了，速度已经比较适合存文件了。当然腾讯微云做的也是用不成，搜索功能是废的，所以我转了阿里。<br>3.同步网盘<br>主打同步网盘的产品相对来讲就比较少了，大厂中就只有微云同步助手还活着了，只提供Win版和Mac版，同步目录占用微云的空间，但看起来做的不如腾讯微云做的用心。<br>坚果云是按月流量计费，免费上传1G下载3G，难免有点捉襟见肘，但是只写写文档还是绰绰有余的，也比微云好用的多。<br>4.集成网盘/云服务<br>典型的例子是集成手机系统里的云服务，Apple的iCloud，miui等国产系统自带的云服务，用于同步手机里的相册、录音。<br>集成在网易云音乐里的网易音乐云盘，方便用户听歌(规避版权)。集成在WPS里的云盘也带给用户非常棒的体验。<br>5.不稳定的国外网盘<br>最典型的是MiroSoft的OneDrive<br>6.被墙的国外网盘<br>最典型的是大名鼎鼎的GoogleDrive</p>
-<hr>
-<h3 id="自建NAS"><a href="#自建NAS" class="headerlink" title="自建NAS"></a>自建NAS</h3><p>对于网盘已经满足不了的用户，可以自建NAS，群辉等老牌NAS厂商的方案已经十分成熟。</p>
-<h3 id="FreeFileSync"><a href="#FreeFileSync" class="headerlink" title="FreeFileSync"></a>FreeFileSync</h3><p><a target="_blank" rel="noopener" href="https://freefilesync.org/download.php">FreeFileSync</a>可用于同一设备不同文件夹的改动检测和同步，本身提供Win、Linux、Mac三平台及源代码，综合来看应用场景应该是用U盘或者移动硬盘进行数据备份。</p>
-<hr>
-<h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>坚果云也是跨平台同步软件，提供Win、Linux、Mac、Android、IOS和网页客户端，自带markdown编辑器，看样子是主打内容创作。<br>PS：笔者写网页用的就是坚果云，PC上同步整个工程文件夹，方便发布；安卓上直接使用“坚果云arkdown”进行编辑，大部分内容不同步到移动设备。<br>PPS：由于网页源代码都比较小，所以免费版流量的每月1GB给我随便写都造不完。</p>
-<hr>
-<h3 id="群晖助手"><a href="#群晖助手" class="headerlink" title="群晖助手"></a>群晖助手</h3><p>我觉得群晖的app做的不错，PC端其实完全用不到，还是Syncthing更香<br>安卓上有一堆群晖/DS的应用程序，笔者喜欢用DS audio听歌</p>
-<hr>
-<h3 id="Syncthing的使用"><a href="#Syncthing的使用" class="headerlink" title="Syncthing的使用"></a>Syncthing的使用</h3><p>Syncthing可用于不同设备间的备份，具有去中心化的特点</p>
-<h4 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h4><p>假设Linux上的目录是/app/syncthing，用户为root<br>安装syncthing并写配置文件<br>先<a target="_blank" rel="noopener" href="https://syncthing.net/downloads/">下载</a>，后上传到服务器</p>
-<p>解压命令是</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf syncthing-linux-arm64-v1.19.1.tar.gz</span><br></pre></td></tr></table></figure>
-<p>首先启动./syncthing，初始化完毕后按下Ctrl+C终止操作</p>
-<p>打开/root/.config/syncthing/config.xml</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改&lt;address&gt;为0.0.0.0:8384</span><br></pre></td></tr></table></figure>
-<h4 id="设置自启动"><a href="#设置自启动" class="headerlink" title="设置自启动"></a>设置自启动</h4><p>修改文件名称/app/syncthing/etc/linux-systemd/system/<a href="mailto:&#x73;&#121;&#110;&#99;&#116;&#x68;&#x69;&#x6e;&#103;&#64;&#114;&#x6f;&#x6f;&#x74;&#46;&#115;&#101;&#114;&#x76;&#x69;&#99;&#101;">&#x73;&#121;&#110;&#99;&#116;&#x68;&#x69;&#x6e;&#103;&#64;&#114;&#x6f;&#x6f;&#x74;&#46;&#115;&#101;&#114;&#x76;&#x69;&#99;&#101;</a></p>
-<p>拷贝到systemd文件夹</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp syncthing@root.service /etc/systemd/system/</span><br></pre></td></tr></table></figure>
-<p>修改<a href="mailto:&#115;&#121;&#110;&#99;&#x74;&#x68;&#x69;&#110;&#x67;&#x40;&#x72;&#111;&#x6f;&#x74;&#46;&#x73;&#101;&#x72;&#118;&#105;&#99;&#101;">&#115;&#121;&#110;&#99;&#x74;&#x68;&#x69;&#110;&#x67;&#x40;&#x72;&#111;&#x6f;&#x74;&#46;&#x73;&#101;&#x72;&#118;&#105;&#99;&#101;</a>内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/systemd/system/syncthing@root.service</span><br><span class="line">ExecStart=/app/syncthing/syncthing</span><br></pre></td></tr></table></figure>
-<p>使用命令启动服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable syncthing@root.service</span><br><span class="line">systemctl start syncthing@root.service</span><br></pre></td></tr></table></figure>
-<p>在控制端打开网页进行配置<br>创建文件夹后配制文件夹，等待扫描完成后可以开启共享发送给添加的设备</p>
+            <span id="more"></span>
 
+<p>转载自<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/hshLzXgopJPkEuQRUALCxw">中科院物理所</a></p>
+<hr>
+<p>我经常听到人们讲，是因为观察者通过光子和电子发生相互作用使光子的动量受到了影响，所以才导致了海森堡不确定性原理。</p>
+<div class="figure fig-100" style="width:;"><a class="fancybox" href="01.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="01.png" alt=""></a></div>
+
+<p>观察者必须通过影响电子的动量（或一些量子态）来观察它，这或许是真的，但这不是导致不确定性原理的真正原因！在开始讨论这个话题之前，让我们先定义海森堡不确定性原理(Heisenberg’s uncertainty principle)。</p>
+<blockquote>
+<p>在量子力学中，存在一系列关于<strong>共轭物理量</strong>（如位置和动量）的不等式，它们限制了同时测量这些成对物理量的精度，这些不等式中的任意一个都可以被称为不确定性原理（或是海森堡不确定性原理）。</p>
+<p align="right">——维基百科</p>
+</blockquote>
+<p>一种常见的表述方式是，在任何给定的时间点，你都无法同时准确地测量粒子的动量和位置。这种不确定性不取决于设备的好坏，也不是因为很难消除测量误差。无论我们做得多好，我们都无法同时精确测量这两个量（如动量和能量）…<br>首先，存在许多种不确定性原理，其中不少能在宏观世界中看到。即使你没有意识到它们的存在，但其实也一直在和这些现象打交道。其次，海森堡不确定性原理背后与数学有着密切的关系。所有波和物质（共轭变量）都必须遵从一系列的不确定性原理，真正导出这些原理的是一个数学事实（稍后详述）。音乐、雷达技术、能源技术和光也有必须遵守的“不确定性原理”，我们很快就会看到，是数学决定了这一切。</p>
+<hr>
+<h3 id="波"><a href="#波" class="headerlink" title="波"></a>波</h3><p>一切都可以归结为非常简单的事情。无论多复杂的的信号或函数，实际上都是正弦波的叠加。正弦波是具有特定波长和振幅的波。叠加仅仅意味着所有的波相互作用，所有波的和（称为干涉）就是构成更复杂信号的叠加。也就是说，我们可以将一个函数分解为组成它的更简单的部分（正弦波）。这几乎就是我们在计算傅里叶级数的傅里叶系数时所要做的一切。值得的一提的是，这个方法对于非周期函数同样适用。这种效果在音乐中是众所周知的，例如，吉他生中的泛音会干扰主波（弦的频率）。也就是说，吉他的声音（以及任何其他乐器，包括你的声音）是由频率和振幅不同的正弦波组成的。当我们描述这样一个复杂的信号时，我们有两种等价的方式可以选择。也就是说，我们可以选择两种不同的单位对它进行描述。我们可以选择用时间来描述产生干涉图样的所有波是如何同时相互作用的，也可以选择用构成干涉图样的正弦波的频率来描述它。可以用两种等效的方式来描述的事件被称为双重关系（dual relationship）。如果我们可以找到一个数学工具来描述时间信号和频率信号之间的双重关系，那当然再好不过。事实上，我们确实找到了这样的工具。</p>
+<hr>
+<h3 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h3><p>我上面提到的描述这种双重关系的工具叫做傅里叶变换(Fourier transform)。毫无疑问，它是数学工具中最强大、最常用的工具之一。在给出它的一些特性之前，我们先讲一讲这种傅里叶变换的一些一般性质：</p>
+<blockquote>
+<p>傅里叶变换是一种积分变换（也就是一个算符），它拿到一个函数并返回另一个函数。</p>
+</blockquote>
+<p>作为函数空间上的一个算符，我们可以把它看作是纯数学的客体，但我们可以赋予它很好的物理解释。在物理和数学领域，我们都可以使用它。今天，我们主要将从物理学的角度来考虑它。在下面的讨论中，我们假设积分始终收敛。</p>
+<p>令f: R→C是一个可积函数。f的傅里叶变换由以下积分给出：</p>
+<div class="figure fig-100" style="width:;"><a class="fancybox" href="02.png" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="02.png" alt=""></a></div>
+
+<p>如果表示声波随时间的变化，那么傅里叶变换的结果表示构成声波的频率，因此也可以看做是频率的函数。下面的动图显示了声波（图中是单位脉冲信号）是如何由许多正弦波组成的，正弦波的叠加产生了函数，即</p>
+<div class="figure fig-100" style="width:;"><a class="fancybox" href="03.gif" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="03.gif" alt=""></a></div>
             
 
 
@@ -352,7 +352,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/Backups/" rel="tag">Backups</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/Network/" rel="tag">Network</a>
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Linux/" rel="tag">Linux</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/System/" rel="tag">System</a>
 
             </div>
         
@@ -365,9 +365,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/posts/2010/"
-                    data-tooltip="群晖的初始化"
-                    aria-label="上一篇: 群晖的初始化"
+                    href="/posts/2008/"
+                    data-tooltip="在Android设备上使用Linux"
+                    aria-label="上一篇: 在Android设备上使用Linux"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -379,9 +379,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/posts/1009/"
-                    data-tooltip="催化基础"
-                    aria-label="下一篇: 催化基础"
+                    href="/posts/2000/"
+                    data-tooltip="搭建Web服务器"
+                    aria-label="下一篇: 搭建Web服务器"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
@@ -441,9 +441,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/posts/2010/"
-                    data-tooltip="群晖的初始化"
-                    aria-label="上一篇: 群晖的初始化"
+                    href="/posts/2008/"
+                    data-tooltip="在Android设备上使用Linux"
+                    aria-label="上一篇: 在Android设备上使用Linux"
                 >
                     
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -455,9 +455,9 @@
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/posts/1009/"
-                    data-tooltip="催化基础"
-                    aria-label="下一篇: 催化基础"
+                    href="/posts/2000/"
+                    data-tooltip="搭建Web服务器"
+                    aria-label="下一篇: 搭建Web服务器"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
