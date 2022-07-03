@@ -13,7 +13,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg"},"articleBody":"本文介绍了如何在Windows、Linux和MacOS搭建FTP、SFTP和SMB服务器，以及Windows、Andoid和MacOS上的客户端\n\n\nWindows配置服务器FTP服务器下载Filezilla需要添加用户，并为用户添加文件夹就可以愉快的用了，本机先测试一下，局域网内注意Windows的防火墙\n\nSMB服务器文件夹右键-&gt;共享-&gt;高级共享注：默认协议是SMB2/3，不需要在添加功能里添加SMB1.0\n\nLinux配置服务器FTP服务器安装与配置\n123sudo apt-get install vsftpdsudo service vsftpd startsudo nano /etc/vsftpd.conf\n找到并修改\n1234anonymous_enable=NO //不允许匿名访问local_enable=YES //允许本地用户访问write_enable=YES //允许写local_umask=022 //设定上传后文件权限掩码\n重启vsftpd服务使配置文件生效\n1sudo service vsftpd restart\n允许root登录\n12nano /etc/ftpusers注释掉 root即可\n提示找不到服务器的错误排查\n检查21端口的占用\n1lsof -i:21\n查看/home/username目录是否存在\n\n配置SMB服务器安装SMB 服务器\n1apt-get install samba\n安装webmin配置web界面\n如果你已经熟练使用配置文件来管理smb内容，此步骤可以跳过\nwget下载，或者迅雷下载后上传\n1wget http://prdownloads.sourceforge.net/webadmin/webmin_1.994_all.deb\n安装webmin及其依赖\n12apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python unzipdpkg --install webmin_1.994_all.deb\n有关Linux的权限说明注意SMB里的文件权限可能不一样，可以使用chown修复文件夹权限\n1chown -R nobody public\n\nMacOSFTP服务器使用QuickFTP Server，设置账号密码就行了\nSMB系统偏好设置-&gt;共享-&gt;高级选项-&gt;smb\n\nAndroid客户端ES文件浏览器：ftp、sftp、ftps、webdav、smb客户端和ftp服务器CX文件管理器：和ES文件浏览器一样\n\nWindows客户端Filezila客户端：ftp、sftp、ftpsXFTP：ftp、sftp，但可以和Xshell联动文件管理器：smb和ftp\n\nMacOS客户端Filezila客户端\n","dateCreated":"2018-08-15T00:00:00+08:00","dateModified":"2022-06-25T01:01:17+08:00","datePublished":"2018-08-15T00:00:00+08:00","description":"本文介绍了如何在Windows、Linux和MacOS搭建FTP、SFTP和SMB服务器，以及Windows、Andoid和MacOS上的客户端","headline":"搭建文件服务器","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://panxiuwen.pages.dev/posts/4003/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"https://panxiuwen.pages.dev/posts/4003/","keywords":"Server"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg"},"articleBody":"本文介绍了如何在Windows、Linux和MacOS搭建FTP、SFTP和SMB服务器，以及Windows、Andoid和MacOS上的客户端\n\n\nWindows配置服务器FTP服务器下载Filezilla需要添加用户，并为用户添加文件夹就可以愉快的用了，本机先测试一下，局域网内注意Windows的防火墙\n\nsmb服务器文件夹右键-&gt;共享-&gt;高级共享注：默认协议是SMB2/3，不需要在添加功能里添加SMB1.0\n\nLinux配置服务器FTP服务器安装与配置\n123sudo apt-get install vsftpdsudo service vsftpd startsudo nano /etc/vsftpd.conf\n找到并修改\n1234anonymous_enable=NO //不允许匿名访问local_enable=YES //允许本地用户访问write_enable=YES //允许写local_umask=022 //设定上传后文件权限掩码\n重启vsftpd服务使配置文件生效\n1sudo service vsftpd restart\n允许root登录\n12nano /etc/ftpusers注释掉 root即可\n提示找不到服务器的错误排查\n检查21端口的占用\n1lsof -i:21\n查看/home/username目录是否存在\n\n配置smb服务器安装smb 服务器\n1apt-get install samba\n有关Linux的权限说明注意SMB里的文件权限可能不一样，可以使用chown修复文件夹权限\n1chown -R nobody public\n如果您对Linux配置用户不熟悉，请使用webmin管理smb，参考Linux性能监控\n\nMacOSFTP服务器使用QuickFTP Server，设置账号密码就行了\nsmb系统偏好设置-&gt;共享-&gt;高级选项-&gt;smb\n\nAndroid客户端ES文件浏览器：ftp、sftp、ftps、webdav、smb客户端和ftp服务器CX文件管理器：和ES文件浏览器一样\n\nWindows客户端Filezila客户端：ftp、sftp、ftpsXFTP：ftp、sftp，但可以和Xshell联动文件管理器：smb和ftp\n\nMacOS客户端Filezila客户端\n","dateCreated":"2018-08-15T00:00:00+08:00","dateModified":"2022-07-01T23:31:23+08:00","datePublished":"2018-08-15T00:00:00+08:00","description":"本文介绍了如何在Windows、Linux和MacOS搭建FTP、SFTP和SMB服务器，以及Windows、Andoid和MacOS上的客户端","headline":"搭建文件服务器","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://panxiuwen.pages.dev/posts/4003/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"https://panxiuwen.pages.dev/posts/4003/","keywords":"Server"}</script>
     <meta name="description" content="本文介绍了如何在Windows、Linux和MacOS搭建FTP、SFTP和SMB服务器，以及Windows、Andoid和MacOS上的客户端">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="搭建文件服务器">
@@ -22,7 +22,7 @@
 <meta property="og:description" content="本文介绍了如何在Windows、Linux和MacOS搭建FTP、SFTP和SMB服务器，以及Windows、Andoid和MacOS上的客户端">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-08-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-24T17:01:17.000Z">
+<meta property="article:modified_time" content="2022-07-01T15:31:23.641Z">
 <meta property="article:author" content="Sean Pan">
 <meta property="article:tag" content="Server">
 <meta name="twitter:card" content="summary">
@@ -52,7 +52,11 @@
     
         
     
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
     <body>
         <div id="blog">
@@ -313,7 +317,7 @@
 <hr>
 <h3 id="Windows配置服务器"><a href="#Windows配置服务器" class="headerlink" title="Windows配置服务器"></a>Windows配置服务器</h3><h4 id="FTP服务器"><a href="#FTP服务器" class="headerlink" title="FTP服务器"></a>FTP服务器</h4><p><a target="_blank" rel="noopener" href="https://www.filezilla.cn/download/server">下载Filezilla</a>需要添加用户，并为用户添加文件夹就可以愉快的用了，本机先测试一下，局域网内注意Windows的防火墙</p>
 <hr>
-<h4 id="SMB服务器"><a href="#SMB服务器" class="headerlink" title="SMB服务器"></a>SMB服务器</h4><p>文件夹右键-&gt;共享-&gt;高级共享<br><strong>注：默认协议是SMB2/3，不需要在添加功能里添加SMB1.0</strong></p>
+<h4 id="smb服务器"><a href="#smb服务器" class="headerlink" title="smb服务器"></a>smb服务器</h4><p>文件夹右键-&gt;共享-&gt;高级共享<br><strong>注：默认协议是SMB2/3，不需要在添加功能里添加SMB1.0</strong></p>
 <hr>
 <h3 id="Linux配置服务器"><a href="#Linux配置服务器" class="headerlink" title="Linux配置服务器"></a>Linux配置服务器</h3><h4 id="FTP服务器-1"><a href="#FTP服务器-1" class="headerlink" title="FTP服务器"></a>FTP服务器</h4><p>安装与配置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install vsftpd</span><br><span class="line">sudo service vsftpd start</span><br><span class="line">sudo nano /etc/vsftpd.conf</span><br></pre></td></tr></table></figure>
@@ -323,24 +327,19 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service vsftpd restart</span><br></pre></td></tr></table></figure>
 <p>允许root登录</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/ftpusers</span><br><span class="line">注释掉 root即可</span><br></pre></td></tr></table></figure>
-<p>提示找不到服务器的错误排查</p>
+<p><strong>提示找不到服务器的错误排查</strong></p>
 <p>检查21端口的占用</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsof -i:21</span><br></pre></td></tr></table></figure>
 <p>查看/home/username目录是否存在</p>
 <hr>
-<h4 id="配置SMB服务器"><a href="#配置SMB服务器" class="headerlink" title="配置SMB服务器"></a>配置SMB服务器</h4><p>安装SMB 服务器</p>
+<h4 id="配置smb服务器"><a href="#配置smb服务器" class="headerlink" title="配置smb服务器"></a>配置smb服务器</h4><p>安装smb 服务器</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install samba</span><br></pre></td></tr></table></figure>
-<p>安装<a target="_blank" rel="noopener" href="https://www.webmin.com/deb.html">webmin</a>配置web界面</p>
-<p>如果你已经熟练使用配置文件来管理smb内容，此步骤可以跳过</p>
-<p>wget下载，或者迅雷下载后上传</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://prdownloads.sourceforge.net/webadmin/webmin_1.994_all.deb</span><br></pre></td></tr></table></figure>
-<p>安装webmin及其依赖</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python unzip</span><br><span class="line">dpkg --install webmin_1.994_all.deb</span><br></pre></td></tr></table></figure>
 <p>有关Linux的权限说明<br>注意SMB里的文件权限可能不一样，可以使用chown修复文件夹权限</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R nobody public</span><br></pre></td></tr></table></figure>
+<p>如果您对Linux配置用户不熟悉，请使用webmin管理smb，参考<a href="/posts/2019">Linux性能监控</a></p>
 <hr>
 <h3 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h3><h4 id="FTP服务器-2"><a href="#FTP服务器-2" class="headerlink" title="FTP服务器"></a>FTP服务器</h4><p>使用QuickFTP Server，设置账号密码就行了</p>
-<h4 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h4><p>系统偏好设置-&gt;共享-&gt;高级选项-&gt;smb</p>
+<h4 id="smb"><a href="#smb" class="headerlink" title="smb"></a>smb</h4><p>系统偏好设置-&gt;共享-&gt;高级选项-&gt;smb</p>
 <hr>
 <h3 id="Android客户端"><a href="#Android客户端" class="headerlink" title="Android客户端"></a>Android客户端</h3><p>ES文件浏览器：ftp、sftp、ftps、webdav、smb客户端和ftp服务器<br>CX文件管理器：和ES文件浏览器一样</p>
 <hr>
