@@ -13,7 +13,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg"},"articleBody":"本文介绍如何在Linux环境搭建Minecraft服务器\n\n一、配置基本软件1.配置Java在Oracle官网根据版本下载JDK，下载jdk8需要登录解压文件\n1tar -zxvf \n假设java可执行文件文件在/app/jdk1.8.0_241/jre/bin/java，检查Java能否正确运行\n1/app/jdk1.8.0_241/jre/bin/java -version\n2.配置 screen安装screen\n1apt-get install screen\nnano .bashrc，写入下面的内容\n123alias sl=&quot;screen -ls&quot;\t\t\t\t//输入sl就可以查看运行中的screenalias sb=&quot;screen bash&quot;\t\t\t\t//输入sb就可以打开一个sreenalias sr=&#x27;func() &#123; screen -D -r $1;&#125;; func&#x27;\t//输入sr +screen_id就可以返回screen\n\n二、配置Minecraft服务器此步骤应该在Windows下操作\n1.获取Minecraft服务器在Forge上下载喜欢的版本的Forge Installer，\n\n安装时选择Install server\n\n其实这个可以断点续传的，它会自动校验已经存在的jar的特征码，所以可以把下载好的jar放到目录里面，比如第一个下载的minecraft_server.1.14.4.jar，足足有34.2MB，建议直接复制链接用迅雷下载，或者在启动jar时使用代理，见搭建代理服务器\n\n下载非常容易崩掉，我下了8次终于下完了，下完了就可以编译了\n\n先命令行测试一下，启动成功，慢到吐血\n2.调试命令行假设主jar是/app/mcs/forge-1.14.4-28.2.5.jar，测试命令行\n1cd /app/mcs&amp;&amp; screen -dm /app/jdk1.8.0_241/jre/bin/java -Xms4G -Xmx4G -jar /app/mcs/forge-1.14.4-28.2.5.jar nogui\n如果启动成功，则可以为此命令设置alias，可以添加到开机启动项\n编辑eula.txt\n1eula=true\n编辑server.properties\n12pvp=falseonline-mode=false\n最终效果图\n\n\n三、其他内容1.配置pi-dashboard用于服务器性能监测配置方法详见Linux性能监控\n\n2.Minecraft指令死亡不掉落\n1/gamerule keepInventory true\n防爆\n1/gamerule mobGriefing false\n查看在线玩家\n1list\n调整游戏模式\n1gamemode\t//0生存模式，1创造模式，2冒险模式\n\n四、相关链接HMCL启动器BedRock版Android客户端下载BedRock版服务器下载\n","dateCreated":"2020-11-12T00:00:00+08:00","dateModified":"2022-07-02T20:46:55+08:00","datePublished":"2020-11-12T00:00:00+08:00","description":"本文介绍如何在Linux环境搭建Minecraft服务器","headline":"搭建Minecraft服务器","image":["cover.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://panxiuwen.pages.dev/posts/2006/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"https://panxiuwen.pages.dev/posts/2006/","keywords":"Server","thumbnailUrl":"cover.jpg"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg"},"articleBody":"本文介绍如何在Linux环境搭建Minecraft服务器\n\n一、配置基本软件1.配置Java在Oracle官网根据版本下载JDK，下载jdk8需要登录，注意1.18后的Forge仅兼容java17,推荐在Windows上运行Java也使用配置环境变量的方法解压文件\n1tar -zxvf XXX.tar.gz\n假设java可执行文件文件在/app/jdk1.8.0_241/jre/bin/java，检查Java能否正确运行\n1/app/jdk1.8.0_241/jre/bin/java -version\n2.配置 screen安装screen\n1apt-get install screen\nnano .bashrc，写入下面的内容\n123alias sl=&quot;screen -ls&quot;\t\t\t\t//输入sl就可以查看运行中的screenalias sb=&quot;screen bash&quot;\t\t\t\t//输入sb就可以打开一个sreenalias sr=&#x27;func() &#123; screen -D -r $1;&#125;; func&#x27;\t//输入sr +screen_id就可以返回screen\n\n在建立screen后，按Ctrl+A后再按D暂时退出Screenscreen -dm +运行的命令在后台执行命令\n二、配置Minecraft服务器此步骤应该在Windows下操作\n1.获取Minecraft服务器在Forge上下载喜欢的版本的Forge Installer，\n\n安装时选择Install server\n\n其实这个可以断点续传的，它会自动校验已经存在的jar的特征码，所以可以把下载好的jar放到目录里面，比如第一个下载的minecraft_server.1.14.4.jar，足足有34.2MB，建议直接复制链接用迅雷下载，或者在启动jar时使用代理，见搭建代理服务器\n\n下载非常容易崩掉，我下了8次终于下完了，下完了就可以编译了\n\n先命令行测试一下，启动成功，慢到吐血\n2.调试命令行假设主jar是/app/mcs/forge-1.14.4-28.2.5.jar，测试命令行\n1cd /app/mcs&amp;&amp; screen -dm /app/jdk1.8.0_241/jre/bin/java -Xms4G -Xmx4G -jar /app/mcs/forge-1.14.4-28.2.5.jar nogui\n如果启动成功，则可以为此命令设置alias，可以添加到开机启动项\n编辑eula.txt\n1eula=true\n编辑server.properties\n12pvp=falseonline-mode=false\n最终效果图\n\n\n三、其他内容1.配置pi-dashboard用于服务器性能监测配置方法详见Linux性能监控\n\n2.Minecraft指令死亡不掉落\n1/gamerule keepInventory true\n防爆\n1/gamerule mobGriefing false\n查看在线玩家\n1list\n调整游戏模式\n1gamemode\t//0生存模式，1创造模式，2冒险模式\n\n四、相关链接HMCL启动器BedRock版Android客户端下载BedRock版服务器下载\n","dateCreated":"2020-11-12T00:00:00+08:00","dateModified":"2022-07-20T14:17:55+08:00","datePublished":"2020-11-12T00:00:00+08:00","description":"本文介绍如何在Linux环境搭建Minecraft服务器","headline":"搭建Minecraft服务器","image":["cover.jpg"],"mainEntityOfPage":{"@type":"WebPage","@id":"https://panxiuwen.pages.dev/posts/2006/"},"publisher":{"@type":"Organization","name":"Sean Pan","sameAs":["https://www.zhihu.com/people/gu-ao-de-zhan-dou-zhe","https://music.163.com/#/user/home?id=70816221","https://github.com/panxiuwen/","https://gitee.com/sean982202733/","mailto:panxiuwen_sean@qq.com"],"image":"mitu.jpg","logo":{"@type":"ImageObject","url":"mitu.jpg"}},"url":"https://panxiuwen.pages.dev/posts/2006/","keywords":"Server","thumbnailUrl":"cover.jpg"}</script>
     <meta name="description" content="本文介绍如何在Linux环境搭建Minecraft服务器">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="搭建Minecraft服务器">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://panxiuwen.pages.dev/posts/2006/05.jpg">
 <meta property="og:image" content="https://panxiuwen.pages.dev/posts/2006/06.jpg">
 <meta property="article:published_time" content="2020-11-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-02T12:46:55.000Z">
+<meta property="article:modified_time" content="2022-07-20T06:17:55.000Z">
 <meta property="article:author" content="Sean Pan">
 <meta property="article:tag" content="Server">
 <meta name="twitter:card" content="summary">
@@ -320,8 +320,8 @@
         <div class="main-content-wrap">
             <p>本文介绍如何在Linux环境搭建Minecraft服务器</p>
 <span id="more"></span>
-<h3 id="一、配置基本软件"><a href="#一、配置基本软件" class="headerlink" title="一、配置基本软件"></a>一、配置基本软件</h3><h4 id="1-配置Java"><a href="#1-配置Java" class="headerlink" title="1.配置Java"></a>1.配置Java</h4><p>在Oracle官网根据版本下载<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/archive/">JDK</a>，下载jdk8需要登录<br>解压文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf </span><br></pre></td></tr></table></figure>
+<h3 id="一、配置基本软件"><a href="#一、配置基本软件" class="headerlink" title="一、配置基本软件"></a>一、配置基本软件</h3><h4 id="1-配置Java"><a href="#1-配置Java" class="headerlink" title="1.配置Java"></a>1.配置Java</h4><p>在Oracle官网根据版本下载<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/archive/">JDK</a>，下载jdk8需要登录，注意1.18后的Forge仅兼容java17,推荐在Windows上运行Java也使用配置环境变量的方法<br>解压文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf XXX.tar.gz</span><br></pre></td></tr></table></figure>
 <p>假设java可执行文件文件在<code>/app/jdk1.8.0_241/jre/bin/java</code>，检查Java能否正确运行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/app/jdk1.8.0_241/jre/bin/java -version</span><br></pre></td></tr></table></figure>
 <h4 id="2-配置-screen"><a href="#2-配置-screen" class="headerlink" title="2.配置 screen"></a>2.配置 screen</h4><p>安装screen</p>
@@ -329,6 +329,7 @@
 <p>nano .bashrc，写入下面的内容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias sl=&quot;screen -ls&quot;				//输入sl就可以查看运行中的screen</span><br><span class="line">alias sb=&quot;screen bash&quot;				//输入sb就可以打开一个sreen</span><br><span class="line">alias sr=&#x27;func() &#123; screen -D -r $1;&#125;; func&#x27;	//输入sr +screen_id就可以返回screen</span><br></pre></td></tr></table></figure>
 <hr>
+<p>在建立screen后，按Ctrl+A后再按D暂时退出Screen<br>screen -dm +运行的命令在后台执行命令</p>
 <h3 id="二、配置Minecraft服务器"><a href="#二、配置Minecraft服务器" class="headerlink" title="二、配置Minecraft服务器"></a>二、配置Minecraft服务器</h3><p>此步骤应该在Windows下操作</p>
 <h4 id="1-获取Minecraft服务器"><a href="#1-获取Minecraft服务器" class="headerlink" title="1.获取Minecraft服务器"></a>1.获取Minecraft服务器</h4><p>在<a target="_blank" rel="noopener" href="https://files.minecraftforge.net/net/minecraftforge/forge/">Forge</a>上下载喜欢的版本的Forge Installer，</p>
 <div class="figure center" style="width:;"><a class="fancybox" href="01.jpg" title="" data-caption="" data-fancybox="default"><img class="fig-img" src="01.jpg" alt=""></a></div>
@@ -415,7 +416,7 @@
             <a
                 class="post-action-btn btn btn--default btn-open-shareoptions"
                 href="#btn-open-shareoptions"
-                aria-label="Diesen Beitrag teilen"
+                aria-label="Share this post"
             >
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
@@ -426,7 +427,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
@@ -491,7 +492,7 @@
             <a
                 class="post-action-btn btn btn--default btn-open-shareoptions"
                 href="#btn-open-shareoptions"
-                aria-label="Diesen Beitrag teilen"
+                aria-label="Share this post"
             >
                 <i class="fa fa-share-alt" aria-hidden="true"></i>
             </a>
@@ -502,7 +503,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
             
                 <i class="fa fa-list" aria-hidden="true"></i>
             </a>
